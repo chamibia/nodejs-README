@@ -2,9 +2,7 @@
 // If there is no license, return an empty string
 function renderLicenseBadge(license) {
   if (license !== "None") {
-    return `[![License](https://img.shields.io/badge/License-license-blue.svg)](https://opensource.org/licenses/license)
-
-    https://opensource.org/licenses/license
+    return `[![License](https://img.shields.io/badge/license-${license}-blue.svg)
     `
   } else {
     return ""
@@ -16,14 +14,15 @@ function generateMarkdown(data) {
   return `# ${data.title}
 
 ## Table of Contents
-[Description](#description)
-[Installation Instructions](#installation)
-[Usage Instructions](#instructions)
-[Contributors](#contributors)
-[Testing Application](#testing)
-[License](#license)
-[Username](#username)
-[Contact Details](#confirmDetail)
+----------------------------------------------------------------
+- ## [Description](#Description)
+- ## [Installation](#Installation)
+- ## [Usage](#usage)
+- ## [Contributors](#Contributors)
+- ## [Testing Application](#Testing)
+- ## [License](#License)
+- ## [Username](#Username)
+- ## [Email](#Email)
 
 --------------------------------------------------
 
@@ -31,10 +30,10 @@ function generateMarkdown(data) {
 ${data.description}
 
 ## Installation
-${data.confirmInstallation}
+${data.installation}
 
-## Usage Instructions
-${data.instructions}
+## Usage 
+${data.usage}
 
 ## Contributors
 ${data.contributors}
@@ -48,8 +47,8 @@ ${renderLicenseBadge(data.license)}
 ## Username
 ${data.username}
 
-## Contact Details
-${data.confirmDetail}
+## Email
+${data.email}
 
 `;
 }

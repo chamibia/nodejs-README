@@ -1,11 +1,13 @@
-// TODO: Include packages needed for this application
+//file system to create for README
 const fs = require("fs");
+
+// require 'inquirer' to capture user input in the command line 
 const inquirer = require("inquirer");
 const generateMarkdown = require("./utils/generateMarkdown");
 
-// TODO: Create an array of questions for user input
+// Create an array of questions for user input
 const questions = () => {
-  return inquirer.prompt([
+return inquirer.prompt([
     {
       type: "input",
       name: "title",
@@ -61,7 +63,7 @@ const questions = () => {
     },
     {
       type: "input",
-      name: "instructions",
+      name: "usage",
       message:
         "Please provide any instructions required for using your application",
       when: ({ confirmUsage }) => {
@@ -98,7 +100,7 @@ const questions = () => {
     {
       type: "input",
       name: "testing",
-      message: "How are users able to test your application?",
+      message: "How can users test your application?",
       when: ({ testConfirm }) => {
         if (testConfirm) {
           return true;
@@ -107,7 +109,7 @@ const questions = () => {
         }
       },
     },
-    //create checkbox to pick licenses
+    //create checkbox for user to chose a license
     {
       type: "checkbox",
       name: "license",
@@ -119,9 +121,7 @@ const questions = () => {
         "NPOSL_3.0",
         "OSL_3.0",
         "MPL_2.0",
-        "GPL_2.0",
         "BSD_3_Clause",
-        "CDDL_1.0",
         "None"
       ],
       validate: (nameInput) => {
@@ -148,20 +148,17 @@ const questions = () => {
     },
     {
       type: "input",
-      name: "confirmDetail",
-      message: "Please provide details if you would like to be contacted.",
-      validate: (nameInput) => {
-        if (nameInput) {
-          return false;
-        } else {
-          return false;
-        }
-      },
-    },
+      name: "email",
+      message: "Please provide your email address.",
+
+    }
+    //write file for README with prompt questions
   ]).then((answers) => {
     fs.writeFile("README.md", generateMarkdown(answers), err => {
         err ? console.log(err) : console.log('Read Me has been created!');
     })
   })
 };
+
+//call question function to generate prompted questions 
 questions()
