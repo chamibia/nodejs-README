@@ -25,17 +25,17 @@ const questions = () => {
       type: "input",
       name: "description",
       message:
-        "Would you like to add a description to your repository?(Required)",
+        "Please create a description to your repository(Required)",
       validate: (nameInput) => {
         if (nameInput) {
           return true;
         } else {
-          console.log("Please enter a description for your repository");
+          console.log("Please enter a description of your repository.");
           return false;
         }
       },
     },
-    //confirm installation process
+    // confirm installation process
     {
       type: "confirm",
       name: "confirmInstallation",
@@ -75,13 +75,13 @@ const questions = () => {
     {
       type: "confirm",
       name: "confirmContributors",
-      message: "Did any other developers contribute to your repository?",
+      message: "Did any other developers contribute to your project?",
     },
     {
       type: "input",
       name: "contributors",
       message:
-        "Please provide details of how other developers have contributed to your project",
+        "Please provide details of developers who have contributed to your project.",
       when: ({ confirmContributors }) => {
         if (confirmContributors) {
           return true;
@@ -114,14 +114,15 @@ const questions = () => {
       message: "Please pick a license.",
       choices: [
         "MIT",
-        "IPL-1.0",
-        "NASA-1.3",
-        "NPOSL-3.0",
-        "OSL-3.0",
-        "MPL-2.0",
-        "GPL-2.0",
-        "BSD-3-Clause",
-        "CDDL-1.0",
+        "IPL_1.0",
+        "NASA_1.3",
+        "NPOSL_3.0",
+        "OSL_3.0",
+        "MPL_2.0",
+        "GPL_2.0",
+        "BSD_3_Clause",
+        "CDDL_1.0",
+        "None"
       ],
       validate: (nameInput) => {
         if (nameInput) {
@@ -147,8 +148,8 @@ const questions = () => {
     },
     {
       type: "input",
-      name: "questions",
-      message: "Please provide any details if you would like to be contacted.",
+      name: "confirmDetail",
+      message: "Please provide details if you would like to be contacted.",
       validate: (nameInput) => {
         if (nameInput) {
           return false;
@@ -157,14 +158,10 @@ const questions = () => {
         }
       },
     },
-  ]);
+  ]).then((answers) => {
+    fs.writeFile("README.md", generateMarkdown(answers), err => {
+        err ? console.log(err) : console.log('Read Me has been created!');
+    })
+  })
 };
-
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
-
-// TODO: Create a function to initialize app
-function init() {}
-
-// Function call to initialize app
-//init();
+questions()
