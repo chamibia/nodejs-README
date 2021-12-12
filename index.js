@@ -12,7 +12,7 @@ return inquirer.prompt([
       type: "input",
       name: "title",
       message: "What is your project title for the repository? (Required)",
-      //confirm that value is there
+      //validate values throughout the prompted questions
       validate: (nameInput) => {
         if (nameInput) {
           return true;
@@ -22,7 +22,7 @@ return inquirer.prompt([
         }
       },
     },
-
+  //add project description
     {
       type: "input",
       name: "description",
@@ -55,7 +55,7 @@ return inquirer.prompt([
         }
       },
     },
-    //confirm
+    //confirm usage
     {
       type: "confirm",
       name: "confirmUsage",
@@ -65,7 +65,7 @@ return inquirer.prompt([
       type: "input",
       name: "usage",
       message:
-        "Please provide any instructions required for using your application",
+        "Please provide any instructions required for using your application.",
       when: ({ confirmUsage }) => {
         if (confirmUsage) {
           return true;
@@ -74,16 +74,17 @@ return inquirer.prompt([
         }
       },
     },
+    //confirm contributors
     {
       type: "confirm",
       name: "confirmContributors",
-      message: "Did any other developers contribute to your project?",
+      message: "Did any developers contribute to this project?",
     },
     {
       type: "input",
       name: "contributors",
       message:
-        "Please provide details of developers who have contributed to your project.",
+        "Please provide the name of contributors to this project.",
       when: ({ confirmContributors }) => {
         if (confirmContributors) {
           return true;
@@ -97,12 +98,13 @@ return inquirer.prompt([
       name: "confirmTest",
       message: "Is there any tests?",
     },
+    //information for testing
     {
       type: "input",
       name: "testing",
       message: "How can users test your application?",
-      when: ({ testConfirm }) => {
-        if (testConfirm) {
+      when: ({ confirmTest }) => {
+        if (confirmTest) {
           return true;
         } else {
           return false;
@@ -133,6 +135,7 @@ return inquirer.prompt([
         }
       },
     },
+    //user name input
     {
       type: "input",
       name: "username",
@@ -146,6 +149,7 @@ return inquirer.prompt([
         }
       },
     },
+    //email input
     {
       type: "input",
       name: "email",
@@ -155,7 +159,7 @@ return inquirer.prompt([
     //write file for README with prompt questions
   ]).then((answers) => {
     fs.writeFile("README.md", generateMarkdown(answers), err => {
-        err ? console.log(err) : console.log('Read Me has been created!');
+        err ? console.log(err) : console.log('README.md has been created!');
     })
   })
 };
